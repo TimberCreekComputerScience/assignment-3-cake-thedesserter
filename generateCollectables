@@ -1,0 +1,30 @@
+//put at top
+ArrayList<Sprite> eggs;
+
+
+//put in show
+eggs = new ArrayList<Sprite>();
+generateEggs();
+
+
+//put in render
+for (Sprite e: eggs) {
+  e.draw(batch);
+}
+
+
+// put under render
+public void generateEggs() {
+        ArrayList<Sprite> used = new ArrayList<Sprite>();
+        while (eggs.size() < 7) {
+            Sprite sprite = sprites.get(r.nextInt(sprites.size()));
+            if (!used.contains(sprite)) {
+                used.add(sprite);
+                Sprite egg = new Sprite(new Texture("cake.png"));
+                egg.setPosition(sprite.getX(), sprite.getY() + height / 17f);
+                egg.setSize(width / 24 - 15, height / 17 - 15);
+                eggs.add(egg);
+            }
+
+        }
+    }
