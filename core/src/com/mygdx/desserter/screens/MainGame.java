@@ -45,13 +45,6 @@ public class MainGame implements Screen {
         camera.setToOrtho(false, width, height);
         r = new Random();
 
-        // making map
-//        edges = new ArrayList<Rectangle>();
-//        edges.add(new Rectangle(0, height/17 * 7, width, height/17 * 2));
-//        edges.add(new Rectangle(0, 0, width, height/17));
-//        edges.add(new Rectangle(0,0, width/24, height));
-//        edges.add(new Rectangle(width/24*15, 0, width/24, height));
-
         sprites = new ArrayList<Sprite>();
 
         // Blocking bottom
@@ -97,10 +90,6 @@ public class MainGame implements Screen {
 
         batch.end();
 
-
-
-
-
         if (Gdx.input.isTouched()) {
             Vector3 touched = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
             camera.unproject(touched);
@@ -127,10 +116,17 @@ public class MainGame implements Screen {
     }
 
     public void createMap() {
-        int rows[] = {2, 4, 6, 8, 10, 12, 14, 16};
-        for (int r : rows) {
+        int rows1[] = {2, 4, 6, 8, 10, 12, 14};
+        int rows2[] = {2, 4, 7, 9, 12, 14};
+        int rows3[] = {2, 4, 6, 9, 11, 13, 15};
+        int rows4[] = {2, 5, 7, 9, 12, 14};
+        int rows[][] = {rows1, rows2, rows3, rows4};
+        for (int r : rows[r.nextInt(rows.length)]) {
             createPlatform(r);
+            System.out.println(r);
+//            createPlatform2(r);
         }
+        System.out.println();
     }
 
     public void createPlatform(int i) {
@@ -142,7 +138,16 @@ public class MainGame implements Screen {
                 int size = (int)(Math.random() * (5 - 2)) + 2;
                 for (int k=0; k<size; k++) {
                     if (j+k < 23) {
-                        Sprite sprite = new Sprite(new Texture("badlogic.jpg"));
+                        Sprite sprite;
+                        if (k == 0) {
+                            sprite = new Sprite(new Texture("badlogic.jpg"));
+                        }
+                        else if (k == size-1) {
+                            sprite = new Sprite(new Texture("badlogic.jpg"));
+                        }
+                        else {
+                            sprite = new Sprite(new Texture("Twizzler.png"));
+                        }
                         sprite.setSize(width / 24, height / 17);
                         sprite.setPosition((j + k) * width / 24, i * height / 17);
                         sprites.add(sprite);
@@ -156,7 +161,6 @@ public class MainGame implements Screen {
                 holes.add(1);
             }
         }
-        System.out.println(platforms.size());
         platforms.clear();
     }
 
