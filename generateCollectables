@@ -12,6 +12,20 @@ for (Sprite e: eggs) {
   e.draw(batch);
 }
 
+for (Iterator<Sprite> iterator = eggs.iterator(); iterator.hasNext();) {
+    Sprite egg = iterator.next();
+    Rectangle eggHitbox = new Rectangle(egg.getX(), egg.getY(), egg.getWidth(), egg.getHeight());
+    if (player.doesHit(eggHitbox)) {
+        iterator.remove();
+        score++;
+    }
+}
+
+if (eggs.size() == 0) {
+    generateEggs();
+}
+
+
 
 // put under render
 public void generateEggs() {
